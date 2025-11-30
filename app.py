@@ -1,11 +1,18 @@
 import streamlit as st
 import datetime
+
+# LLM Imports
 from langchain_openai import ChatOpenAI
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.messages import HumanMessage
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
+
+# FIXED memory imports
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain.memory import ConversationBufferMemory
+
+# Prompt Modules
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import HumanMessage
 
 # ---------------------------
 # STREAMLIT UI SETUP
@@ -34,15 +41,18 @@ task = st.sidebar.radio(
     ["Content Ideas", "Daily Captions", "Weekly Plan"]
 )
 
-# Initialize memory (optional)
-memory = ConversationBufferMemory(return_messages=True)
+# ---------------------------
+# FIXED MEMORY
+# ---------------------------
+history = ChatMessageHistory()
+memory = ConversationBufferMemory(chat_memory=history, return_messages=True)
 
 # ---------------------------
 # LLM SELECTOR
 # ---------------------------
 def load_model():
     if model_choice == "OpenAI GPT-4o":
-        return ChatOpenAI(model_name="gpt-4o", temperature=0.8, api_key=api_key)
+        return ChatOpenAI(model="gpt-4o", temperature=0.8, api_key=api_key)
 
     elif model_choice == "Claude 3":
         from anthropic import Anthropic
@@ -60,18 +70,19 @@ def generate_response(prompt):
     model = load_model()
 
     if model_choice == "OpenAI GPT-4o":
-        return model.predict(prompt)
+        return model.invoke(prompt).content
 
     elif model_choice == "Claude 3":
-        return model.messages.create(
+        resp = model.messages.create(
             model="claude-3-opus-20240229",
-            max_tokens=500,
+            max_tokens=700,
             messages=[{"role": "user", "content": prompt}]
-        ).content[0].text
+        )
+        return resp.content[0].text
 
     elif model_choice == "Gemini 1.5":
-        response = model.generate_content(prompt)
-        return response.text
+        resp = model.generate_content(prompt)
+        return resp.text
 
 # ---------------------------
 # VECTOR DB (Optional)
@@ -100,65 +111,3 @@ if submit:
 
     if not topic:
         st.warning("Please enter a topic.")
-        st.stop()
-
-    # -------------------------------------------------------------------
-    # PROMPTS
-    # -------------------------------------------------------------------
-    if task == "Content Ideas":
-        prompt = f"""
-        Generate 20 unique content ideas for {platform} in the {topic} niche.
-        Make them engaging, trend-driven, and high-performance.
-        Format as bullet points.
-        """
-
-    elif task == "Daily Captions":
-        prompt = f"""
-        Create 10 Instagram captions for today's date ({datetime.date.today()}), 
-        for the {topic} niche.
-
-        Captions must be:
-        - Short
-        - Hook-based
-        - Include trending hashtags
-        """
-
-    elif task == "Weekly Plan":
-        prompt = f"""
-        Create a weekly social media plan for {platform} in the {topic} niche.
-
-        Include:
-        - 7 days plan
-        - Content type
-        - Hook
-        - Caption
-        - Hashtags
-        """
-
-    # -------------------------------------------------------------------
-    # GENERATE OUTPUT
-    # -------------------------------------------------------------------
-    with st.spinner("Generating..."):
-        output = generate_response(prompt)
-
-    st.success("Done!")
-    st.write(output)
-
-    # Save to vector DB (optional)
-    if st.sidebar.checkbox("Save Output to Vector DB"):
-        db = init_vector_db()
-        db.add_texts([output])
-        st.sidebar.success("Saved successfully!")
-
-# ---------------------------
-# FOOTER
-# ---------------------------
-st.markdown("""
----
-### 🚀 Tips for Deployment
-- Save this file as `app.py`
-- Deploy directly on **Streamlit Cloud**
-- Add API keys through Streamlit **Secrets Manager**
-
----
-""")
