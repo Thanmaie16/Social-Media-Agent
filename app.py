@@ -1,22 +1,9 @@
 import streamlit as st
-from langchain_community.memory import ConversationBufferMemory
-
-memory = ConversationBufferMemory(return_messages=True)
-
-st.title("Memory Test")
-
-msg = st.text_input("Message:")
-
-if st.button("Add"):
-    memory.chat_memory.add_user_message(msg)
-    st.write(memory.load_memory_variables({}))
-import streamlit as st
 import datetime
 from langchain_openai import ChatOpenAI
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage
-from langchain.memory import ConversationBufferMemory
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
 
