@@ -1,9 +1,12 @@
 streamlit
+langchain
 langchain-core
 langchain-community
 langchain-openai
-langchain-anthropic
 langchain-google-genai
+langchain-anthropic
+chromadb
+openai
 google-generativeai
 anthropic
-openai
+
