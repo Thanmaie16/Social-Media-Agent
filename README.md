@@ -1,106 +1,176 @@
-This project is a simple, clean and easy-to-understand single-file HTML web application. It helps users generate social media content ideas, captions, and a weekly posting plan. It is designed especially for students working on college projects, beginners in digital marketing, and anyone who wants a straightforward content planning tool.
+# 📱 AI Social Media Agent
 
-## Features
+A Streamlit-powered AI tool that generates **content ideas**, **daily captions**, and **weekly content plans** for social media platforms using GPT-4o, Claude 3, or Gemini 1.5 Pro.
 
-### 1. Content Idea Generato
+---
 
-* Select the platform (Instagram, TikTok, LinkedIn, etc.)
-* Choose the type of content (Reel, Carousel, Image, Story)
-* Pick a tone such as friendly, educational, humorous or professional
-* Add keywords related to your topic
-* Generate short, structured content ideas based on your selections
+## 🚀 Features
 
-### 2. Automatically Written Captions
+### ✅ **AI-Powered Content Generation**
 
-* The system prepares short captions based on the idea you generate
-* Captions are styled according to the tone and platform you choose
-* You can copy the captions with a single click
+* 20 content ideas for any niche
+* 10 daily captions with hashtags
+* 7-day content planner with hooks + captions
 
-### 3. Weekly Planner
+### ✅ **Multi-Model Support**
 
-* A seven-day planner is automatically created starting from the current day
-* You can drag and drop generated ideas into specific days
-* You can also add ideas to the current day instantly
-* The planner supports multiple posts per day
+Choose your preferred AI backend:
 
-### 4. Auto-Fill Week
+* **OpenAI GPT-4o**
+* **Claude 3 Opus**
+* **Gemini 1.5 Pro**
 
-* Creates a complete seven-day content plan with a single click
-* Useful when creating weekly social media strategies quickly
+### ✅ **Vector Storage (Optional)**
 
-### 5. Export as CSV
+Save generated results to **ChromaDB** for later retrieval.
 
-* The weekly plan can be exported as a CSV file
-* This file can be opened in Excel or Google Sheets for submission or further editing
+### ✅ **Session Chat History**
 
-### 6. Ready-Made Templates
+Keeps track of conversations using Streamlit’s session state.
 
-* Includes quick templates such as:
+---
 
-  * How-to posts
-  * Before and after posts
-  * Story-based ideas
-  * Myth-versus-fact ideas
-  * Top-five lists
-* These templates can generate ideas immediately
+## 🛠️ Tech Stack
 
-## How to Run
+| Component     | Technology                          |
+| ------------- | ----------------------------------- |
+| Frontend      | Streamlit                           |
+| AI Models     | OpenAI GPT-4o, Claude 3, Gemini 1.5 |
+| Vector DB     | Chroma                              |
+| Embeddings    | OpenAI Embeddings                   |
+| Backend Logic | Python + LangChain                  |
 
-This project requires no installation.
+---
 
-1. Save the HTML file on your computer.
-2. Double-click the file to open it in your browser.
-3. Start generating ideas and planning your weekly content.
+## 📂 Project Structure
 
-The file works on all major browsers and is mobile-friendly.
+```
+.
+├── app.py
+└── README.md
+```
 
-## File Structure
+---
 
-The project consists of a single HTML file containing:
+## 🔧 Installation & Setup
 
-* HTML layout
-* CSS styling
-* JavaScript logic
+### 1️⃣ Clone the repository
 
-No backend, server, or external tools are required.
+```bash
+git clone https://github.com/your-username/ai-social-media-agent.git
+cd ai-social-media-agent
+```
 
-## How It Works
+### 2️⃣ Create a virtual environment
 
-* JavaScript selects idea templates based on tone and keywords
-* Captions are generated using predefined sentence structures
-* The weekly planner uses the device's current date to set up the week
-* The drag-and-drop feature uses native browser events
-* The export button converts the planner data into a CSV file
+```bash
+python -m venv venv
+source venv/bin/activate  # MacOS/Linux
+venv\Scripts\activate     # Windows
+```
 
-## Design Overview
+### 3️⃣ Install dependencies
 
-The user interface is designed to look modern, simple and easy to navigate. It uses:
+```bash
+pip install -r requirements.txt
+```
 
-* A clean color scheme
-* Smooth rounded containers
-* Readable spacing
-* A responsive grid layout
+*(If you don’t have a requirements file, create one with:)*
 
-## Suitable Use Cases
+```
+streamlit
+langchain
+langchain-openai
+langchain-community
+anthropic
+google-generativeai
+chromadb
+```
 
-* College mini projects
-* Demonstration for practical exams
-* Beginner marketing portfolios
-* Weekly planning tool for creators
-* Internship submission projects
-* Basic prototype for social media management tools
+---
 
-## Optional Future Improvements
+## 🔐 API Keys Required
 
-If needed, you can extend the project with features such as:
+You must add credentials for at least one of the following:
 
-* Saving planner data in local storage
-* Creating multiple campaign boards
-* Exporting as PDF
-* Using real AI API integration
-* Adding a login system
-* Uploading and previewing images
+* **OpenAI API Key**
+* **Anthropic API Key**
+* **Google Gemini API Key**
 
-## Credits
+In Streamlit Cloud, add them under:
+**Settings → Secrets → Add key**
 
-This project was created as an easy-to-use demonstration of a social media content generator and planner. It is fully customizable and can be expanded further based on requirements.
+Locally, you can export them:
+
+```bash
+export OPENAI_API_KEY="your_key"
+export ANTHROPIC_API_KEY="your_key"
+export GOOGLE_API_KEY="your_key"
+```
+
+---
+
+## ▶️ Running the App
+
+Start the Streamlit server:
+
+```bash
+streamlit run app.py
+```
+
+The app opens automatically in your browser:
+
+```
+http://localhost:8501/
+```
+
+---
+
+## 📸 UI Overview
+
+* Enter a content **topic / niche**
+* Select **platform** (Instagram, TikTok, YouTube, LinkedIn)
+* Select task:
+
+  * Content Ideas
+  * Daily Captions
+  * Weekly Plan
+* Choose AI model from the sidebar
+* (Optional) Save results to vector DB
+
+---
+
+## 💾 Saving to Vector DB
+
+When the "Save to Vector DB" checkbox is enabled, the generated output is stored into a **Chroma collection** for later retrieval or analysis.
+
+---
+
+## 🧩 Future Enhancements
+
+* Add image generation for post thumbnails
+* Auto-posting via Instagram / LinkedIn API
+* Multi-user authentication
+* Full analytics dashboard
+* Hashtag performance predictor
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+Feel free to fork the repo and submit a pull request.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## ⭐ Show Your Support
+
+If you found this helpful, don’t forget to **star the repository**! 🌟
+
+---
