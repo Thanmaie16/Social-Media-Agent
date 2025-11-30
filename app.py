@@ -1,7 +1,7 @@
 import streamlit as st
 import datetime
 from langchain_openai import ChatOpenAI
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema import HumanMessage
 from langchain.memory import ConversationBufferMemory
