@@ -2,7 +2,7 @@ This project is a simple, clean and easy-to-understand single-file HTML web appl
 
 ## Features
 
-### 1. Content Idea Generator
+### 1. Content Idea Generato
 
 * Select the platform (Instagram, TikTok, LinkedIn, etc.)
 * Choose the type of content (Reel, Carousel, Image, Story)
