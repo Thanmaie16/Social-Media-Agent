@@ -1,0 +1,9 @@
+streamlit
+langchain-core
+langchain-community
+langchain-openai
+langchain-anthropic
+langchain-google-genai
+google-generativeai
+anthropic
+openai
